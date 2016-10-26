@@ -10,35 +10,45 @@ Then I google something relative, and found WebDriver spec, saddly this is decid
 * Some are from [WebDriver spec](https://w3c.github.io/webdriver/webdriver-spec.html)
 * [facebook/WebdriverAgent](https://github.com/facebook/WebDriverAgent) project
 
-# Details
+# Queries
+This is list of most common endpoints with some query examples using curl with pre-set environment variables:
+
+- `DEVICE_URL` set as device URL (eg. http://somehost/webdriver)
+- `SESSION_ID` set as session id. Returned by start session command e.g. D15E12F6-CA23-4CD4-89F9-E5C5EA6F4FAD
+- `JSON_HEADER='-H "Content-Type: application/json"'`
+
 The RESTful API split into two part, session apis and without session apis.
-
 ## Without Session APIs
-### Get window size
+APIs do not need a app started.
 
+### Get window size
 `GET /windows/size`
 
 ### Send Key Event
-`POST /keyevent`
+```
+$ curl -X POST -d '{"key": "HOME"}' $DEVICE_URL/keyevent
+{
+	"status": 0,
+	"value": "keyevent: HOME"
+}
+```
 
-params is only `key`, values must be string.
+Android `key` can be the following string.
 
 - HOME
 - EDIT
-- BACK 
+- BACK
+
+more see [here](https://developer.android.com/reference/android/view/KeyEvent.html)
 
 iOS got only `HOME` works
 
 ### Take screenshot
-`GET /screenshot`
-
-The return value will be like
-
-```json
+```
+$ curl -X GET $DEVICE_URL/screenshot
 {
 	"status": 0,
-	"format": "png", // default is png
-	"value": {base64 encoded data}
+	"value": "{base64 encoded data}"
 }
 ```
 
