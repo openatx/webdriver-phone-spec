@@ -117,5 +117,14 @@ $ curl -X DELETE /api/devices/{serial}/remoteConnect
 }
 ```
 
+## Install apk
+```
+$ curl -X POST --data '{"apkUrl":"https://static.dongqiudi.com/app/apk/dongqiudi_website.apk"}' /api/device/{serial}/installApk
+{
+	"success": true,
+	"taskId": 1
+}
+```
+
 ## LICENSE
 Under [GPL 3](LICENSE)
